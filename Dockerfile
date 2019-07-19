@@ -99,6 +99,7 @@ RUN conda install --quiet --yes -c defaults -c conda-forge \
     'notebook=5.7.8' \
     'jupyterhub=1.0.0' \
     'jupyterlab=1.0.1' \
+    'matplotlib' \
     'pandas' && \
     conda clean --all -f -y && \
     npm cache clean --force && \
@@ -127,3 +128,7 @@ RUN fix-permissions /etc/jupyter/
 
 # Switch back to jupyter user to run notebook
 USER ${NB_USER}
+
+# Import matplotlib the first time to build the font cache.
+RUN MPLBACKEND=Agg python -c "import matplotlib.pyplot" && \
+    fix-permissions ${HOME}
