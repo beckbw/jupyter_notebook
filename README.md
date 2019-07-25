@@ -8,8 +8,8 @@
 
 * To run
 
-```$ docker run -p 8888:8888  <dockerhub username>/jupyter_notebook:<version>```
+```$ docker run -p 80:8888  <dockerhub username>/jupyter_notebook:<version>```
 
 * To run (with mount)
 
-```$ docker run -p 8888:8888  -v $PWD/data:/home/jupyter/work <dockerhub username>/jupyter_notebook:<version>```
+```$ docker run -p 80:8888  -v $PWD/data:/home/jupyter/work <dockerhub username>/jupyter_notebook:<version>```
