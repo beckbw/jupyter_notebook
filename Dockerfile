@@ -74,6 +74,8 @@ USER ${NB_USER}
 WORKDIR ${HOME}
 
 RUN mkdir /home/${NB_USER}/work && fix-permissions ${HOME}
+# Add a 23andMe notebook
+ADD Haplotypes_23andMe.ipynb /home/${NB_USER}/work/Haplotypes_23andMe.ipynb
 
 ENV MINICONDA_VERSION=4.6.14 \
     CONDA_VERSION=4.7.5
@@ -93,12 +95,15 @@ RUN cd /tmp && \
     fix-permissions ${CONDA_DIR} && \
     fix-permissions ${HOME}
 
-# Install Jupyter Notebook, Lab, and Hub
+# Install Jupyter Notebook, Lab, Hub and extra packages for Haplotypes Notebook
 RUN conda install --quiet --yes -c defaults -c conda-forge \
     'notebook=5.7.8' \
     'jupyterhub=1.0.0' \
     'jupyterlab=1.0.1' \
+    'biopython' \
+    'ete3' \
     'matplotlib' \
+    'networkx' \
     'pandas' && \
     conda clean --all -f -y && \
     npm cache clean --force && \
